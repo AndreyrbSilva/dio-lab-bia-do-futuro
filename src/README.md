@@ -38,3 +38,7 @@ pip install streamlit pandas requests
 # 3. Rodar o app
 streamlit run ./src/app.py
 ```
+
+## Evidência de Execução
+
+<img width="1237" height="642" alt="image" src="https://github.com/user-attachments/assets/eb0fb6a8-59f4-4314-9a30-5d4f2b5d2e6e" />
