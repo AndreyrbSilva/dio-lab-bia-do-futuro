@@ -4,8 +4,8 @@ import requests
 import streamlit as st
 
 # ============ CONFIGURAÇÃO ============
-ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
-MODELO = "claude-sonnet-4-20250514"
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+MODELO = "llama-3.3-70b-versatile"
 
 # ============ CARREGAR DADOS ============
 perfil = json.load(open('./data/perfil_usuario.json'))
@@ -44,23 +44,23 @@ REGRAS:
 - Responda de forma objetiva, com no máximo 3 parágrafos.
 """
 
-# ============ CHAMAR ANTHROPIC ============
+# ============ CHAMAR GROQ ============
 def perguntar(msg):
     r = requests.post(
-        ANTHROPIC_URL,
+        GROQ_URL,
         headers={
-            "x-api-key": st.secrets["ANTHROPIC_API_KEY"],
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
+            "Authorization": f"Bearer {st.secrets['GROQ_API_KEY']}",
+            "Content-Type": "application/json",
         },
         json={
             "model": MODELO,
-            "max_tokens": 1024,
-            "system": f"{SYSTEM_PROMPT}\n\nCONTEXTO DO USUÁRIO:\n{contexto}",
-            "messages": [{"role": "user", "content": msg}],
+            "messages": [
+                {"role": "system", "content": f"{SYSTEM_PROMPT}\n\nCONTEXTO DO USUÁRIO:\n{contexto}"},
+                {"role": "user", "content": msg},
+            ],
         },
     )
-    return r.json()["content"][0]["text"]
+    return r.json()["choices"][0]["message"]["content"]
 
 # ============ INTERFACE ============
 st.title("🎯 Rumo, seu planejador de metas financeiras")
@@ -69,3 +69,4 @@ if pergunta := st.chat_input("Me conta sua meta ou dúvida..."):
     st.chat_message("user").write(pergunta)
     with st.spinner("Calculando..."):
         st.chat_message("assistant").write(perguntar(pergunta))
+        
