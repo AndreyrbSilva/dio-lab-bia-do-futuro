@@ -1,149 +1,109 @@
-# 🤖 Agente Financeiro Inteligente com IA Generativa
+# 🎯 Rumo - Planejador de Metas Financeiras
 
-## Contexto
+> Agente de IA Generativa que transforma metas financeiras em planos concretos, calculando prazos e aportes mensais com base nos dados reais do usuário.
 
-Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
+## 💡 O Que é o Rumo?
 
-- **Antecipar necessidades** ao invés de apenas responder perguntas
-- **Personalizar** sugestões com base no contexto de cada cliente
-- **Cocriar soluções** financeiras de forma consultiva
-- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
+O Rumo é um assistente de planejamento financeiro que **planeja**, não recomenda. Ele calcula prazos, aponta metas inviáveis e sugere ajustes usando os dados reais de renda, gastos e metas do usuário.
 
-> [!TIP]
-> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+**O que o Rumo faz:**
+- ✅ Calcula prazos e aportes mensais para metas financeiras
+- ✅ Identifica metas inviáveis no prazo desejado e sugere alternativas
+- ✅ Usa dados reais do usuário para personalizar os cálculos
+- ✅ Acompanha o progresso de metas ativas e concluídas
 
----
+**O que o Rumo NÃO faz:**
+- ❌ Não recomenda produtos financeiros ou investimentos
+- ❌ Não acessa dados bancários sensíveis
+- ❌ Não substitui um planejador financeiro profissional
 
-## O Que Você Deve Entregar
+## 🏗️ Arquitetura
 
-### 1. Documentação do Agente
-
-Defina **o que** seu agente faz e **como** ele funciona:
-
-- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
-- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
-- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
-- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
-
-📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
-
----
-
-### 2. Base de Conhecimento
-
-Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
-
-| Arquivo | Formato | Descrição |
-|---------|---------|-----------|
-| `transacoes.csv` | CSV | Histórico de transações do cliente |
-| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
-| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
-| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
-
-Você pode adaptar ou expandir esses dados conforme seu caso de uso.
-
-📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
-
----
-
-### 3. Prompts do Agente
-
-Documente os prompts que definem o comportamento do seu agente:
-
-- **System Prompt:** Instruções gerais de comportamento e restrições
-- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
-- **Tratamento de Edge Cases:** Como o agente lida com situações limite
-
-📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
-
----
-
-### 4. Aplicação Funcional
-
-Desenvolva um **protótipo funcional** do seu agente:
-
-- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
-- Integração com LLM (via API ou modelo local)
-- Conexão com a base de conhecimento
-
-📁 **Pasta:** [`src/`](./src/)
-
----
-
-### 5. Avaliação e Métricas
-
-Descreva como você avalia a qualidade do seu agente:
-
-**Métricas Sugeridas:**
-- Precisão/assertividade das respostas
-- Taxa de respostas seguras (sem alucinações)
-- Coerência com o perfil do cliente
-
-📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
-
----
-
-### 6. Pitch
-
-Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
-
-- Qual problema seu agente resolve?
-- Como ele funciona na prática?
-- Por que essa solução é inovadora?
-
-📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
-
----
-
-## Ferramentas Sugeridas
-
-Todas as ferramentas abaixo possuem versões gratuitas:
-
-| Categoria | Ferramentas |
-|-----------|-------------|
-| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
-| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
-
----
-
-## Estrutura do Repositório
-
-```
-📁 lab-agente-financeiro/
-│
-├── 📄 README.md
-│
-├── 📁 data/                          # Dados mockados para o agente
-│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
-│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
-│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
-│   └── transacoes.csv                # Histórico de transações (CSV)
-│
-├── 📁 docs/                          # Documentação do projeto
-│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
-│   ├── 02-base-conhecimento.md       # Estratégia de dados
-│   ├── 03-prompts.md                 # Engenharia de prompts
-│   ├── 04-metricas.md                # Avaliação e métricas
-│   └── 05-pitch.md                   # Roteiro do pitch
-│
-├── 📁 src/                           # Código da aplicação
-│   └── app.py                        # (exemplo de estrutura)
-│
-├── 📁 assets/                        # Imagens e diagramas
-│   └── ...
-│
-└── 📁 examples/                      # Referências e exemplos
-    └── README.md
+```mermaid
+flowchart TD
+    A[Usuário] --> B[Streamlit]
+    B --> C[Groq API - LLaMA 3.3 70B]
+    C --> D[Base de Conhecimento]
+    D --> C
+    C --> E[Resposta com Plano de Ação]
 ```
 
----
+**Stack:**
+- Interface: Streamlit
+- LLM: Groq API (modelo `llama-3.3-70b-versatile`)
+- Dados: JSON/CSV mockados
 
-## Dicas Finais
+## 📁 Estrutura do Projeto
 
-1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
-2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
-3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
-4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
-5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto
+```
+├── assets/                        # Materiais de apoio
+│
+├── data/                          # Base de conhecimento
+│   ├── perfil_usuario.json        # Perfil e renda do usuário
+│   ├── metas.json                 # Metas ativas com progresso
+│   ├── transacoes.csv             # Histórico de transações
+│   └── historico_metas.csv        # Metas já concluídas
+│
+├── docs/                          # Documentação completa
+│   ├── 01-documentacao-agente.md  # Caso de uso e persona
+│   ├── 02-base-conhecimento.md    # Estratégia de dados
+│   ├── 03-prompts.md              # System prompt e exemplos
+│   ├── 04-metricas.md             # Avaliação de qualidade
+│   └── 05-pitch.md                # Apresentação do projeto
+│
+└── src/
+    └── app.py                     # Aplicação Streamlit
+```
+
+## 🚀 Como Executar
+
+### 1. Configurar a API Key
+
+Crie o arquivo `.streamlit/secrets.toml`:
+
+```toml
+GROQ_API_KEY = "sua-key-aqui"
+```
+
+> ⚠️ Crie sua key gratuita em [console.groq.com](https://console.groq.com). Nunca suba o `secrets.toml` pro GitHub.
+
+### 2. Instalar Dependências
+
+```bash
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
+pip install streamlit pandas requests
+```
+
+### 3. Rodar o Rumo
+
+```bash
+streamlit run src/app.py
+```
+
+## 🎯 Exemplo de Uso
+
+**Pergunta:** "Quanto tempo falta pra eu juntar pra viagem?"  
+**Rumo:** "Faltam R$ 6.800 para a meta de R$ 8.000. Com R$ 400/mês, você chega lá em 17 meses — por volta de março de 2027. Quer tentar antecipar aumentando o aporte mensal?"
+
+**Pergunta:** "Consigo comprar o notebook até dezembro?"  
+**Rumo:** "Não vai dar — faltam R$ 3.600 e só restam 2 meses, você precisaria de R$ 1.800/mês mas tem R$ 1.700 disponível. Quer estender o prazo para fevereiro ou a gente olha seus gastos para tentar um corte?"
+
+## 📊 Métricas de Avaliação
+
+| Métrica | Objetivo |
+|---------|----------|
+| **Precisão de cálculo** | Os prazos e aportes calculados estão corretos? |
+| **Segurança** | Evita inventar valores e recomendar produtos? |
+| **Coerência** | As respostas usam os dados reais do usuário? |
+
+## 🎬 Diferenciais
+
+- **Orientado a metas:** Foco em execução e planejamento, não em educação genérica
+- **Honesto sobre inviabilidade:** Quando a meta não fecha no prazo, diz claramente e sugere ajustes
+- **Público jovem:** Tom informal e direto, pensado para quem está começando a planejar
+- **Seguro:** Estratégias de anti-alucinação documentadas
+
+## 📝 Documentação Completa
+
+Toda a documentação técnica, estratégias de prompt e casos de teste estão disponíveis na pasta [`docs/`](./docs/).
