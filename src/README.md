@@ -1,31 +1,40 @@
-# Código da Aplicação
+# Passo a Passo de Execução
 
-Esta pasta contém o código do seu agente financeiro.
+## Setup da API
 
-## Estrutura Sugerida
-
-```
-src/
-├── app.py              # Aplicação principal (Streamlit/Gradio)
-├── agente.py           # Lógica do agente
-├── config.py           # Configurações (API keys, etc.)
-└── requirements.txt    # Dependências
+```bash
+# 1. Criar conta em console.groq.com e gerar uma API key
+# 2. Criar o arquivo de secrets do Streamlit
+mkdir -p .streamlit
+touch .streamlit/secrets.toml
 ```
 
-## Exemplo de requirements.txt
+Adicionar a key no `.streamlit/secrets.toml`:
 
+```toml
+GROQ_API_KEY = "sua-key-aqui"
 ```
-streamlit
-openai
-python-dotenv
-```
+
+> Nunca suba o `secrets.toml` pro GitHub. Adicione ao `.gitignore`:
+> ```bash
+> echo ".streamlit/secrets.toml" >> .gitignore
+> ```
+
+## Código Completo
+
+Todo o código-fonte está no arquivo `src/app.py`.
 
 ## Como Rodar
 
 ```bash
-# Instalar dependências
-pip install -r requirements.txt
+# 1. Criar e ativar o ambiente virtual
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
 
-# Rodar a aplicação
-streamlit run app.py
+# 2. Instalar dependências
+pip install streamlit pandas requests
+
+# 3. Rodar o app
+streamlit run ./src/app.py
 ```
