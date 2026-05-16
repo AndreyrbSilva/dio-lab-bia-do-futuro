@@ -1,54 +1,122 @@
-# Pitch (3 minutos)
+# 🎯 Rumo - Planejador de Metas Financeiras
 
-> [!TIP]
-> Você pode usar alguns slides pra apoiar no seu Pitch e mostrar sua solução na prática.
+> Agente de IA Generativa que transforma metas financeiras em planos concretos, calculando prazos e aportes mensais com base nos dados reais do usuário.
 
-## Estrutura do Pitch
+## 💡 O Que é o Rumo?
 
-| Tempo | Seção | O que falar |
-|-------|-------|-------------|
-| 0:00 - 0:30 | Problema | A dor que você resolve |
-| 0:30 - 1:30 | Solução | Como o Rumo resolve |
-| 1:30 - 2:30 | Demo | Mostre funcionando |
-| 2:30 - 3:00 | Diferencial | Por que é inovador |
+O Rumo é um assistente de planejamento financeiro que **planeja**, não recomenda. Ele calcula prazos, aponta metas inviáveis e sugere ajustes usando os dados reais de renda, gastos e metas do usuário.
 
----
+**O que o Rumo faz:**
+- ✅ Calcula prazos e aportes mensais para metas financeiras
+- ✅ Identifica metas inviáveis no prazo desejado e sugere alternativas
+- ✅ Usa dados reais do usuário para personalizar os cálculos
+- ✅ Acompanha o progresso de metas ativas e concluídas
 
-## Roteiro do Rumo
+**O que o Rumo NÃO faz:**
+- ❌ Não recomenda produtos financeiros ou investimentos
+- ❌ Não acessa dados bancários sensíveis
+- ❌ Não substitui um planejador financeiro profissional
 
-### Problema (30 seg)
+## 🏗️ Arquitetura
 
-> "70% dos jovens brasileiros entre 18 e 30 anos não têm nenhuma meta financeira definida. Não é falta de vontade — é falta de clareza. As pessoas sabem que querem viajar, comprar um notebook, juntar dinheiro. Mas não sabem quanto guardar por mês, nem se o prazo que imaginam é viável."
+```mermaid
+flowchart TD
+    A[Usuário] --> B[Streamlit]
+    B --> C[Groq API - LLaMA 3.3 70B]
+    C --> D[Base de Conhecimento]
+    D --> C
+    C --> E[Resposta com Plano de Ação]
+```
 
-### Solução (60 seg)
+**Stack:**
+- Interface: Streamlit
+- LLM: Groq API (modelo `llama-3.3-70b-versatile`)
+- Dados: JSON/CSV mockados
 
-> "O Rumo é um assistente de planejamento financeiro que transforma uma meta em um plano concreto. Você informa sua renda, seus gastos e o que quer conquistar — ele calcula prazos, aponta quando um objetivo está fora do alcance e sugere ajustes. Sem enrolação, sem recomendação de produto. Só o plano que você precisa para sair do lugar."
+## 📁 Estrutura do Projeto
 
-### Demo (60 seg)
+```
+├── assets/                        # Materiais de apoio
+│
+├── data/                          # Base de conhecimento
+│   ├── perfil_usuario.json        # Perfil e renda do usuário
+│   ├── metas.json                 # Metas ativas com progresso
+│   ├── transacoes.csv             # Histórico de transações
+│   └── historico_metas.csv        # Metas já concluídas
+│
+├── docs/                          # Documentação completa
+│   ├── 01-documentacao-agente.md  # Caso de uso e persona
+│   ├── 02-base-conhecimento.md    # Estratégia de dados
+│   ├── 03-prompts.md              # System prompt e exemplos
+│   ├── 04-metricas.md             # Avaliação de qualidade
+│   └── 05-pitch.md                # Apresentação do projeto
+│
+└── src/
+    └── app.py                     # Aplicação Streamlit
+```
 
-> [Compartilhe a tela e faça 2-3 perguntas ao Rumo]
-> - "Quanto tempo falta pra eu juntar pra viagem?"
-> - "Consigo comprar o notebook até dezembro?"
-> - "Quero juntar pra um carro de R$ 30.000, quanto tempo levaria?"
+## 🚀 Como Executar
 
-### Diferencial (30 seg)
+### 1. Configurar a API Key
 
-> "Diferente de chatbots genéricos, o Rumo usa seus dados reais de renda e gastos para calcular. Ele não promete o que a matemática não permite — quando uma meta não fecha no prazo, ele diz claramente e já oferece alternativas. É honestidade com planejamento, pensado pra quem está começando a vida financeira."
+Crie o arquivo `.streamlit/secrets.toml`:
 
----
+```toml
+GROQ_API_KEY = "sua-key-aqui"
+```
 
-## Checklist do Pitch
+> ⚠️ Crie sua key gratuita em [console.groq.com](https://console.groq.com). Nunca suba o `secrets.toml` pro GitHub.
 
-- [ ] Duração máxima de 3 minutos
-- [ ] Problema claramente definido
-- [ ] Solução demonstrada na prática
-- [ ] Diferencial explicado
-- [ ] Áudio e vídeo com boa qualidade
+### 2. Instalar Dependências
 
----
+```bash
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
+pip install streamlit pandas requests
+```
 
-## Link do Vídeo
+### 3. Rodar o Rumo
 
-> Cole aqui o link do seu pitch (YouTube, Loom, Google Drive, etc.)
+```bash
+streamlit run src/app.py
+```
 
-[Link do vídeo]
+## 🎯 Exemplo de Uso
+
+**Pergunta:** "Quanto tempo falta pra eu juntar pra viagem?"  
+**Rumo:** "Faltam R$ 6.800 para a meta de R$ 8.000. Com R$ 400/mês, você chega lá em 17 meses — por volta de março de 2027. Quer tentar antecipar aumentando o aporte mensal?"
+
+**Pergunta:** "Consigo comprar o notebook até dezembro?"  
+**Rumo:** "Não vai dar — faltam R$ 3.600 e só restam 2 meses, você precisaria de R$ 1.800/mês mas tem R$ 1.700 disponível. Quer estender o prazo para fevereiro ou a gente olha seus gastos para tentar um corte?"
+
+## 📊 Métricas de Avaliação
+
+| Métrica | Objetivo |
+|---------|----------|
+| **Precisão de cálculo** | Os prazos e aportes calculados estão corretos? |
+| **Segurança** | Evita inventar valores e recomendar produtos? |
+| **Coerência** | As respostas usam os dados reais do usuário? |
+
+## 🎬 Diferenciais
+
+- **Orientado a metas:** Foco em execução e planejamento, não em educação genérica
+- **Honesto sobre inviabilidade:** Quando a meta não fecha no prazo, diz claramente e sugere ajustes
+- **Público jovem:** Tom informal e direto, pensado para quem está começando a planejar
+- **Seguro:** Estratégias de anti-alucinação documentadas
+
+## 📝 Documentação Completa
+
+Toda a documentação técnica, estratégias de prompt e casos de teste estão disponíveis na pasta [`docs/`](./docs/).
+
+## 🎬 Pitch
+
+[![Assista ao pitch no YouTube](https://img.shields.io/badge/YouTube-Assistir%20Pitch-red?logo=youtube)](https://youtu.be/ggT7B5A5sdA)
+
+### Roteiro
+
+| Tempo | Seção | Conteúdo |
+|-------|-------|----------|
+| 0:00 – 0:30 | Problema | 70% dos jovens não têm meta financeira definida. Sabem o que querem, mas não sabem como chegar lá. |
+| 0:30 – 1:30 | Solução | O Rumo transforma metas em planos concretos — calcula prazos e aportes com base na renda real do usuário. |
+| 1:30 – 2:30 | Demo | Perguntas ao agente: prazo da viagem, viabilidade do notebook, simulação de novo aporte. |
+| 2:30 – 3:00 | Diferencial | Usa dados reais, é honesto quando a meta não é viável e sempre sugere alternativas. |
